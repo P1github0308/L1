@@ -10,8 +10,7 @@ float main()
     scanf("%f", &b);
     printf("Enter depth of tromboloid: ");
     scanf("%f", &d);
-    v = (((h*d)+d))/(b*3);
+    v = ((h*d)+d)/(b*3);
     printf("Volume of tromboloid: %f",v);
-    return 0;
-    
+    return 0; 
 }
