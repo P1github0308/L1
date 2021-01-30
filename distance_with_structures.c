@@ -24,7 +24,7 @@ float distance(Point p1, Point p2)
 }
 void output(Point p1, Point p2, float dist)
 {
-	printf("The distance between %f, %f and %f,%f is: %f\n", p1.x, p1.y, p2.x, p2.y, dist);
+	printf("The distance between (%.2f, %.2f) and (%.2f,%.2f) is: %.2f\n", p1.x, p1.y, p2.x, p2.y, dist);
 }
 int main()
 {
@@ -36,4 +36,5 @@ int main()
 	output(p1,p2,dist);
 	return 0;
 }
+
 
