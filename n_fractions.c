@@ -2,7 +2,7 @@
 #include<stdio.h>
 
 int get_n();
-void display(int,int[],int[],int,int,int[]);
+void display(int,int[],int[],int,int,int []);
 int get_values(int,int[],int[]);
 int numerators(int,int[],int[],int,int[]);
 int gcd(int,int);
@@ -11,16 +11,17 @@ int simplest_form(int,int);
 
 struct Fraction
 {   
-    int n,nr[20],dr[20],num[20];
+    int nr[20],dr[20];
 }f;
 
 int main()
 {
-    f.n = get_n();
-    get_values(f.n,f.nr,f.dr);
-    int lcm = findlcm(f.n,f.dr);
-    int numerator_value = numerators(f.n,f.nr,f.dr,lcm,f.num);
-    display(f.n,f.nr,f.dr,numerator_value,lcm,f.num);
+    int n = get_n();  //value of n
+    int num[20];      //manipulated values of numerators
+    get_values(n,f.nr,f.dr);
+    int lcm = findlcm(n,f.dr);
+    int numerator_value = numerators(n,f.nr,f.dr,lcm,num);
+    display(n,f.nr,f.dr,numerator_value,lcm,num);
     simplest_form(numerator_value,lcm);
     return 0;
 }
@@ -77,8 +78,8 @@ int numerators(int n,int nr[n],int dr[n],int lcm,int num[n])
 
 int gcd(int a, int b) 
 { 
-    if (b == 0) return a; 
-    return gcd(b, a % b); 
+     if(b==0) return a;
+     return gcd(b,a%b);
 }
 
 int findlcm(int n,int arr[]) 
@@ -97,7 +98,4 @@ int simplest_form(int numerator_value,int lcm)
     printf("The simplified sum is %d/%d",numerator_value,lcm);
     
 }
-
-
-
 
