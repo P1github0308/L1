@@ -5,13 +5,18 @@ struct Fraction
 {
     int nr;
     int dr;
-}f[20];
+};
 
 int main()
 {
     int n = get_n();
+    int num[n];     
+    struct Fraction f[n];
     get_values(n,f);
-    //int lcm = findlcm(n,f[n].dr);
+    int lcm = findlcm(n,f);
+    int numerator_value = numerators(n,f,lcm,num);
+    display(n,f,numerator_value,lcm,num);
+    simplest_form(numerator_value,lcm);
     return 0;
 }
 
@@ -32,10 +37,27 @@ int get_values(int n,struct Fraction f)
         scanf("%d",&f.nr);
         printf("Enter denominator of number %d: ",(i+1));
         scanf("%d",&f.dr);
-        printf("%d\n",f.nr);
-        //fract_array[i] = f;
     }  
     
+}
+
+void display(int n,struct Fraction f,int numerator_value,int lcm,int num[n])
+{
+	int i;
+	printf("\n\nThe equation is: \n   ");
+    for(i=0;i<n;i++)
+	{
+		printf("%d/%d",f.nr,f.dr);
+		if(i<n-1){printf(" + ");}
+	}
+	printf("\n=> ");
+	for(i=0;i<n;i++)
+	{
+	    printf("%d/%d",num[i],lcm);
+		if(i<n-1){printf(" + ");}
+	}
+	printf("\n = %d/%d\n",numerator_value,lcm);
+	
 }
 
 int gcd(int a, int b) 
@@ -44,12 +66,24 @@ int gcd(int a, int b)
      return gcd(b,a%b);
 }
 
-int findlcm(int n,int arr[]) 
+int findlcm(int n,struct Fraction f) 
 { 
-    int ans = arr[0]; 
+    int ans = f.dr; 
     for (int i = 1; i < n; i++) 
-    ans = ((arr[i] * ans)) / (gcd(arr[i], ans)); 
+    ans = ((f.dr * ans)) / (gcd(f.dr, ans)); 
     return ans; 
+}
+
+int numerators(int n,struct Fraction f,int lcm,int num[n])
+{
+    int multiplying_factor[n],sum = 0;
+    for(int i=0;i<n;i++)
+    {   
+        multiplying_factor[i]=lcm/f.dr;
+        num[i] = f.nr*multiplying_factor[i];
+        sum = sum + num[i];
+    }
+    return sum;
 }
 
 int simplest_form(int numerator_value,int lcm)
@@ -60,5 +94,6 @@ int simplest_form(int numerator_value,int lcm)
     printf("The simplified sum is %d/%d",numerator_value,lcm);
     
 }
+
 
 
