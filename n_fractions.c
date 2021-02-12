@@ -1,17 +1,21 @@
 //WAP to find the sum of n fractions.
-#include<stdio.h>
 
-struct Fraction
+#include<stdio.h>
+int get_n( );
+int gcd(int,int);
+int simplest_form(int,int);
+
+typedef struct fraction
 {
     int nr;
     int dr;
-};
+}Fraction;
 
 int main()
 {
     int n = get_n();
     int num[n];     
-    struct Fraction f[n];
+    Fraction f[n];
     get_values(n,f);
     int lcm = findlcm(n,f);
     int numerator_value = numerators(n,f,lcm,num);
@@ -28,36 +32,18 @@ int get_n()
     return n;
 }
 
-int get_values(int n,struct Fraction f)
+void get_values(int n,Fraction f[n])
 { 
-    int fract_array[n];
+    Fraction fract;
     for(int i=0; i<n;i++)
     {
         printf("Enter numerator of number %d: ",(i+1));
-        scanf("%d",&f.nr);
+        scanf("%d",&fract.nr);
         printf("Enter denominator of number %d: ",(i+1));
-        scanf("%d",&f.dr);
+        scanf("%d",&fract.dr);
+        f[i]=fract;    
+        
     }  
-    
-}
-
-void display(int n,struct Fraction f,int numerator_value,int lcm,int num[n])
-{
-	int i;
-	printf("\n\nThe equation is: \n   ");
-    for(i=0;i<n;i++)
-	{
-		printf("%d/%d",f.nr,f.dr);
-		if(i<n-1){printf(" + ");}
-	}
-	printf("\n=> ");
-	for(i=0;i<n;i++)
-	{
-	    printf("%d/%d",num[i],lcm);
-		if(i<n-1){printf(" + ");}
-	}
-	printf("\n = %d/%d\n",numerator_value,lcm);
-	
 }
 
 int gcd(int a, int b) 
@@ -66,21 +52,21 @@ int gcd(int a, int b)
      return gcd(b,a%b);
 }
 
-int findlcm(int n,struct Fraction f) 
+int findlcm(int n,Fraction f[n]) 
 { 
-    int ans = f.dr; 
+    int ans = f[0].dr; 
     for (int i = 1; i < n; i++) 
-    ans = ((f.dr * ans)) / (gcd(f.dr, ans)); 
+    ans = ((f[i].dr * ans)) / (gcd(f[i].dr, ans)); 
     return ans; 
 }
 
-int numerators(int n,struct Fraction f,int lcm,int num[n])
+int numerators(int n,Fraction f[n],int lcm,int num[n])
 {
     int multiplying_factor[n],sum = 0;
     for(int i=0;i<n;i++)
     {   
-        multiplying_factor[i]=lcm/f.dr;
-        num[i] = f.nr*multiplying_factor[i];
+        multiplying_factor[i]=lcm/f[i].dr;
+        num[i] = f[i].nr*multiplying_factor[i];
         sum = sum + num[i];
     }
     return sum;
@@ -93,6 +79,25 @@ int simplest_form(int numerator_value,int lcm)
     lcm = lcm/_gcd_;
     printf("The simplified sum is %d/%d",numerator_value,lcm);
     
+}
+
+void display(int n,Fraction f[n],int numerator_value,int lcm,int num[n])
+{
+	int i;
+	printf("\n\nThe equation is: \n   ");
+    for(i=0;i<n;i++)
+	{
+		printf("%d/%d",f[i].nr,f[i].dr);
+		if(i<n-1){printf(" + ");}
+	}
+	printf("\n=> ");
+	for(i=0;i<n;i++)
+	{
+	    printf("%d/%d",num[i],lcm);
+		if(i<n-1){printf(" + ");}
+	}
+	printf("\n = %d/%d\n",numerator_value,lcm);
+	
 }
 
 
